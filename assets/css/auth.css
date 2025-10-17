@@ -1,0 +1,120 @@
+/* assets/css/auth.css */
+* {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.text-dark-gray {
+  color: #343d46;
+}
+
+/* Error Text */
+.text-error {
+  color: #e63674;
+}
+
+/* Success Text */
+.text-success {
+  color: #4ade80; /* or use a green from your palette */
+}
+
+/* Warning Text */
+.text-warning {
+  color: #fbbf24; /* amber/yellow for warnings */
+}
+
+/* Info Text */
+.text-info {
+  color: #cca3ff; /* your purple */
+}
+
+.text-light-gray {
+  color: #aaaaaa;
+}
+
+.bg-dark-gray {
+  background-color: #343d46;
+}
+
+.bg-light-gray {
+  background-color: #aaaaaa;
+}
+
+.btn-primary {
+  background-color: #cca3ff;
+  color: #343d46;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #b88fee;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(204, 163, 255, 0.4);
+}
+
+.input-field {
+  background-color: #ffffff;
+  border: 2px solid #aaaaaa;
+  color: #343d46;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #cca3ff;
+  box-shadow: 0 0 0 3px rgba(204, 163, 255, 0.2);
+}
+
+.checkbox-custom {
+  border-color: #aaaaaa;
+  accent-color: #cca3ff;
+}
+
+.link-text {
+  color: #cca3ff;
+  transition: color 0.3s ease;
+}
+
+.link-text:hover {
+  color: #b88fee;
+  text-decoration: underline;
+}
+
+.modal-overlay {
+  background-color: rgba(52, 61, 70, 0.8);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  animation: slideUp 0.3s ease;
+}
+
+.mobile-menu {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
