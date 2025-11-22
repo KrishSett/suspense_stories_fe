@@ -1,5 +1,5 @@
 <template>
-  <div class="w-half max-w-2xl px-6">
+  <div class="w-full max-w-xl px-6">
     <AuthResetPasswordForm></AuthResetPasswordForm>
   </div>
 </template>

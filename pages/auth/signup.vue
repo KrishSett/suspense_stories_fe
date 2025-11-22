@@ -1,5 +1,5 @@
 <template>
-  <div class="w-half max-w-2xl px-6">
+  <div class="w-half max-w-xl-md px-6">
     <AuthSignupForm></AuthSignupForm>
   </div>
 </template>
