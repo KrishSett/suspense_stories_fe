@@ -19,6 +19,9 @@ export default defineNuxtConfig({
 			appTitle: process.env.NUXT_PUBLIC_APP_TITLE,
 			appSubtitle: process.env.NUXT_PUBLIC_APP_SUBTITLE
 		},
+		// Server side config
 		apiSecretKey: process.env.API_SECRET_KEY,
+		privateBaseUrl: process.env.PRIVATE_BASE_URL,
+		appEnv: process.env.APP_ENV
 	}
 });

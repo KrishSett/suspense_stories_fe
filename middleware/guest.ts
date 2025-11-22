@@ -1,6 +1,7 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   console.log("=== GUEST MIDDLEWARE RUNNING ===");
   console.log("To path:", to.path);
+  console.log("From Path", from.path);
   
   const auth = useAuthStore();
   console.log("Is Authenticated:", auth.isAuthenticated);
