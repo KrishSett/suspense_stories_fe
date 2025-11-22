@@ -1,6 +1,6 @@
 <template>
   <div class="w-half max-w-2xl px-6">
-    <AuthSignupForm></AuthSignupForm>
+    <AuthResetPasswordForm></AuthResetPasswordForm>
   </div>
 </template>
 

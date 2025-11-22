@@ -15,7 +15,9 @@ export default defineNuxtConfig({
 	],
 	runtimeConfig: {
 		public: {
-			apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL
+			apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+			appTitle: process.env.NUXT_PUBLIC_APP_TITLE,
+			appSubtitle: process.env.NUXT_PUBLIC_APP_SUBTITLE
 		},
 		apiSecretKey: process.env.API_SECRET_KEY,
 	}

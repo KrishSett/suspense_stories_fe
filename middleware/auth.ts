@@ -1,9 +1,15 @@
 export default defineNuxtRouteMiddleware((to) => {
+    console.log("=== MIDDLEWARE RUNNING ===");
+    console.log("To path:", to.path);
+    
     const auth = useAuthStore();
-    // auth.login('krish');
+    console.log("Auth store:", auth);
+    console.log("Is Authenticated:", auth.isAuthenticated);
 
-    // Redirect to login page
     if (!auth.isAuthenticated) {
-        return navigateTo('/auth/login')
+        console.log("NOT AUTHENTICATED - Redirecting to login");
+        return navigateTo('/auth/login');
     }
-});
+    
+    console.log("AUTHENTICATED - Allowing access");
+})

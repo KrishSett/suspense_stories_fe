@@ -3,36 +3,47 @@ import { ref, computed } from 'vue'
 import { STORE_KEYS } from '~/keys/store-keys'
 
 export const useAuthStore = defineStore(STORE_KEYS.AUTH, () => {
-    // State
-    const isAuthenticated = ref(false)
-    const username = ref(null)
+    // Use cookie for persistence
+    const authCookie = useCookie('auth_state', {
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        sameSite: 'lax'
+    })
+
+    // Initialize from cookie
+    const isAuthenticated = ref(authCookie.value?.isAuthenticated || false)
+    const userId = ref(authCookie.value?.userId || null)
+
+    // Sync to cookie helper
+    const syncToCookie = () => {
+        authCookie.value = {
+            isAuthenticated: isAuthenticated.value,
+            userId: userId.value
+        }
+    }
 
     // Actions
-    const login = (name) => {        
+    const login = (Id) => {        
         isAuthenticated.value = true
-        username.value = name
+        userId.value = Id
+        syncToCookie()
     }
 
     const logout = () => {
         isAuthenticated.value = false
-        username.value = null
+        userId.value = null
+        authCookie.value = null // Clear cookie
     }
 
     // Getters
     const isLoggedIn = computed(() => isAuthenticated.value)
-    const currentUser = computed(() => username.value)
+    const currentUser = computed(() => userId.value)
 
     return {
-        // State
         isAuthenticated,
-        username,
-
-        // Actions
+        userId,
         login,
         logout,
-
-        // Getters
         isLoggedIn,
         currentUser
     }
-});
+})

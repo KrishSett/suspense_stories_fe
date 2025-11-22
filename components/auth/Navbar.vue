@@ -8,7 +8,7 @@
         <!-- Logo/Brand -->
         <div class="flex-shrink-0">
           <NuxtLink to="/" class="flex items-center">
-            <span class="text-2xl font-bold text-dark-gray"> YourApp </span>
+            <span class="text-2xl font-bold text-dark-gray"> {{ appTitle }} </span>
           </NuxtLink>
         </div>
 
@@ -89,4 +89,6 @@ const toggleMobileMenu = () => {
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false;
 };
+
+const { appTitle, apiBaseUrl } = useConfig();
 </script>
