@@ -9,7 +9,7 @@
         to="/"
         class="btn-primary px-6 py-3 rounded-lg font-bold text-base shadow-lg"
       >
-        Go Back
+        Go Home
       </NuxtLink>
     </div>
   </div>

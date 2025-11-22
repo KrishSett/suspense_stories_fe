@@ -12,9 +12,9 @@
 
         <!-- Links -->
         <div class="flex space-x-6">
-          <a href="#" class="footer-link text-sm">Privacy Policy</a>
-          <a href="#" class="footer-link text-sm">Terms of Service</a>
-          <a href="#" class="footer-link text-sm">Contact</a>
+          <NuxtLink to="/page/privacy-policy" class="footer-link text-sm">Privacy Policy</NuxtLink>
+          <NuxtLink to="/page/terms-and-conditions" class="footer-link text-sm">Terms of Service</NuxtLink>
+          <NuxtLink to="/page/about-us" class="footer-link text-sm">About Us</NuxtLink>
         </div>
       </div>
     </div>

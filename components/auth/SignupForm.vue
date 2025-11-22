@@ -230,9 +230,9 @@
           />
           <span class="ml-2 text-sm text-dark-gray">
             I agree to the
-            <a href="#" class="link-text font-semibold">Terms of Service</a>
+            <NuxtLink to="/page/terms-and-conditions" class="link-text font-semibold">Terms of Service</NuxtLink>
             and
-            <a href="#" class="link-text font-semibold">Privacy Policy</a>
+            <NuxtLink to="/page/privacy-policy" class="link-text font-semibold">Privacy Policy</NuxtLink>
           </span>
         </label>
         <div v-if="errors.agreeToTerms" class="text-red-500 text-xs mt-1">

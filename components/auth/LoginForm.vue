@@ -18,7 +18,7 @@
           v-model="formData.email"
           type="email"
           id="email"
-          required
+          
           placeholder="Enter your email"
           class="input-field w-full px-4 py-3 rounded-lg text-base"
         />
@@ -34,7 +34,7 @@
             v-model="formData.password"
             :type="showPassword ? 'text' : 'password'"
             id="password"
-            required
+            
             placeholder="Enter your password"
             class="input-field w-full px-4 py-3 pr-12 rounded-lg text-base"
           />
@@ -81,6 +81,14 @@
             </svg>
           </button>
         </div>
+      </div>
+
+      <!-- Error Message -->
+      <div v-if="errorMessage" class="p-4 mb-4 rounded-lg bg-red-50 border border-red-200 flex items-center">
+        <svg class="h-5 w-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+        <span class="text-red-700 text-sm">{{ errorMessage }}</span>
       </div>
 
       <!-- Remember Me & Forgot Password -->
@@ -137,6 +145,7 @@ import { reactive, ref } from "vue";
 
 // Form data
 const formData = reactive({
+  type: "user",
   email: "",
   password: "",
   rememberMe: false,
@@ -144,6 +153,9 @@ const formData = reactive({
 
 // Password visibility
 const showPassword = ref(false);
+
+// Error message
+const errorMessage = ref('');
 
 // Modal state
 const modal = reactive({
@@ -155,18 +167,26 @@ const modal = reactive({
 // Methods
 const handleLogin = () => {
   if (formData.email && formData.password) {
+
+    console.log("Form Login", formData);
     showModal(
       "Login Successful",
       `Welcome back! You are now signed in as ${formData.email}`
     );
 
     // Reset form
+    formData.type = "user";
     formData.email = "";
     formData.password = "";
     formData.rememberMe = false;
 
+    // Reset error message
+    errorMessage.value = "";
+
     // Here you can add your actual login logic
     // Example: await $fetch('/api/auth/login', { method: 'POST', body: formData })
+  } else {
+    errorMessage.value = "Please provide email and password";
   }
 };
 
