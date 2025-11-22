@@ -1,76 +1,19 @@
-# Nuxt Minimal Starter
+# Suspense Stories - Nuxt 3 Frontend
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern, suspense-themed story platform built with Nuxt 3, featuring user authentication, dynamic pages, and a clean service-based architecture.
 
-## Setup
+## 🚀 Features
 
-Make sure to install dependencies:
+- **Authentication System**: Complete auth flow with login, signup, password reset
+- **Dynamic Pages**: CMS-driven pages with slug-based routing
+- **Service Architecture**: Clean separation with BaseService and domain-specific services
+- **State Management**: Pinia stores for authentication and app state
+- **Middleware Protection**: Route guards for authenticated and guest-only pages
+- **Responsive Design**: Mobile-first design with custom CSS theming
+- **API Integration**: Axios-based service layer with error handling
 
-```bash
-# npm
-npm install
+## 📋 Prerequisites
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# news_portal_nuxt
+- Node.js (v18 or higher)
+- npm, pnpm, yarn, or bun
+- Backend API running on `http://127.0.0.1:8000/`
