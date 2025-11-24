@@ -1,4 +1,3 @@
-<!-- components/auth/LoginForm.vue -->
 <template>
   <div class="rounded-lg shadow-2xl p-8 bg-white">
     <!-- Header -->
@@ -18,7 +17,6 @@
           v-model="formData.email"
           type="email"
           id="email"
-          
           placeholder="Enter your email"
           class="input-field w-full px-4 py-3 rounded-lg text-base"
         />
@@ -34,7 +32,6 @@
             v-model="formData.password"
             :type="showPassword ? 'text' : 'password'"
             id="password"
-            
             placeholder="Enter your password"
             class="input-field w-full px-4 py-3 pr-12 rounded-lg text-base"
           />
@@ -109,9 +106,10 @@
       <!-- Submit Button -->
       <button
         type="submit"
-        class="btn-primary w-full py-3 rounded-lg font-bold text-lg shadow-lg"
+        class="btn-primary w-full py-3 rounded-lg font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        :disabled="isSigning"
       >
-        Sign In
+        {{ isSigning ? 'Signing In...' : 'Sign In' }}
       </button>
     </form>
 
@@ -136,12 +134,16 @@
     v-if="modal.isOpen"
     :title="modal.title"
     :message="modal.message"
+    :type="modal.type"
     @close="closeModal"
   />
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+// Import of auth service file
+import { authService } from '~/services/AuthService';
+// Use the modal composable
+const { modal, showSuccess, showError, closeModal } = useModal();
 
 // Form data
 const formData = reactive({
@@ -157,47 +159,61 @@ const showPassword = ref(false);
 // Error message
 const errorMessage = ref('');
 
-// Modal state
-const modal = reactive({
-  isOpen: false,
-  title: "",
-  message: "",
-});
+// Singin flag
+const isSigning = ref(false);
+
+// Add this validation function
+const validateForm = () => {
+  if (!formData.email.trim()) {
+    return "Email is required";
+  }
+  
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    return "Please enter a valid email address";
+  }
+  
+  if (!formData.password) {
+    return "Password is required";
+  }
+  
+  return null;
+};
 
 // Methods
-const handleLogin = () => {
-  if (formData.email && formData.password) {
+  const handleLogin = async () => {
+    // Clear previous errors
+    errorMessage.value = '';
+    isSigning.value = true;
+  
+    // Basic validation
+    const validationError  = validateForm()
+    if (validationError) {
+      errorMessage.value = validationError || 'Form data is not valid';
+      isSigning.value = false;
+      return;
+    }
 
-    console.log("Form Login", formData);
-    showModal(
-      "Login Successful",
-      `Welcome back! You are now signed in as ${formData.email}`
-    );
-
-    // Reset form
-    formData.type = "user";
-    formData.email = "";
-    formData.password = "";
-    formData.rememberMe = false;
-
-    // Reset error message
-    errorMessage.value = "";
-
-    // Here you can add your actual login logic
-    // Example: await $fetch('/api/auth/login', { method: 'POST', body: formData })
-  } else {
-    errorMessage.value = "Please provide email and password";
-  }
-};
-
-const showModal = (title, message) => {
-  modal.title = title;
-  modal.message = message;
-  modal.isOpen = true;
-};
-
-const closeModal = () => {
-  modal.isOpen = false;
-};
+    try {
+      const response = await authService.login(formData);
+    
+      if (!response.success) {
+        throw new Error(response.message || 'Login failed');
+      }
+    
+      // Add slight delay for better UX
+      setTimeout(() => {
+        navigateTo("/");
+      }, 1000);
+    
+    } catch (err) {
+      errorMessage.value = err.message || "Login failed, please try again";
+    
+      // Clear password from form
+      formData.password = "";
+    } finally {
+      isSigning.value = false;
+    }
+  };
 </script>
-

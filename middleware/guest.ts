@@ -15,6 +15,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
   // Redirect authenticated users away from guest-only pages
   if (auth.isAuthenticated && isGuestRoute) {
     console.log("AUTHENTICATED USER - Redirecting from guest page to home");
-    return navigateTo('/home');
+    return navigateTo('/');
   }
 });

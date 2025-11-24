@@ -1,11 +1,11 @@
 import { BaseService } from './BaseService';
-import { useAuthStore } from '~/stores/auth';
+import { useAuthStore } from '~/stores/auth'; // Pinia
 import { AUTH_KEYS } from '~/keys/store-keys';
 
 export class AuthService extends BaseService {
   constructor() {
     super();
-    this.authEndpoint = 'api/auth/';
+    this.authEndpoint = 'auth/';
   }
 
   /**
@@ -92,12 +92,12 @@ export class AuthService extends BaseService {
   /**
    * Update Pinia auth store
    * @param {boolean} isAuthenticated - Authentication status
-   * @param {string|null} userId - User ID
+   * @param {string|null} user - User identifier
    */
-  updateAuthStore(isAuthenticated, userId = null) {
+  updateAuthStore(isAuthenticated, user = null) {
     const authStore = useAuthStore();
-    if (isAuthenticated && userId) {
-      authStore.login(userId);
+    if (isAuthenticated && user) {
+      authStore.login(user);
     } else {
       authStore.logout();
     }
@@ -110,16 +110,16 @@ export class AuthService extends BaseService {
    */
   async login(credentials) {
     try {
-      const response = await this.post(`${this.authEndpoint}login`, credentials);
+      const response = await this.post(`${this.authEndpoint}user`, credentials);
       
       if (response.success && response.data) {
-        const { token, refresh_token, expires_in, user } = response.data;
+        const { success, access_token, refresh_token, expires_in } = response.data;
         
         // Store tokens
-        this.storeTokens(token, refresh_token, expires_in);
+        this.storeTokens(access_token, refresh_token, expires_in);
         
         // Update auth store
-        this.updateAuthStore(true, user?.id || user?.email);
+        this.updateAuthStore(true, credentials?.email);
         
         return response;
       }
@@ -146,7 +146,7 @@ export class AuthService extends BaseService {
         // Store tokens if auto-login after signup
         if (token) {
           this.storeTokens(token, refresh_token, expires_in);
-          this.updateAuthStore(true, user?.id || user?.email);
+          this.updateAuthStore(true, userData?.email);
         }
         
         return response;
@@ -257,20 +257,6 @@ export class AuthService extends BaseService {
   async verifyEmail(token) {
     try {
       return await this.post(`${this.authEndpoint}verify-email`, { token });
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
-   * Change password (authenticated)
-   * @param {Object} data - { current_password, new_password, confirm_password }
-   * @returns {Promise}
-   */
-  async changePassword(data) {
-    try {
-      const headers = this.getAuthHeaders();
-      return await this.post(`${this.authEndpoint}change-password`, data, headers);
     } catch (error) {
       throw error;
     }
